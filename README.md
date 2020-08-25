@@ -16,4 +16,4 @@
    - css
    - images
 - views 视图文件
-- uploaders 上传图片目录
+- upload 上传图片目录
