@@ -3,7 +3,9 @@ var express = require('express'),
     router = express.Router();
 // 首页
 router.get('/', (req, res)=> {
-    res.send('首页');
+    res.render('index', {
+        title: 'hello ejs'
+    });
 });
 
 // 联系我们
