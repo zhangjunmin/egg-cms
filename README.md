@@ -17,3 +17,5 @@
    - images
 - views 视图文件
 - upload 上传图片目录
+
+## bower 依赖 font-awesome jquery-ui layui

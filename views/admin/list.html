@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="vendor/font-awesome/css/all.css">
+    <link rel="stylesheet" href="vendor/layui/dist/css/layui.css">
+    <link rel="stylesheet" href="sweetalert/sweet-alert.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="jquery-10/jquery.js"></script>
+    <script src="sweetalert/sweet-alert.min.js"></script>
+    <script type="text/javascript">
+        function changestatus(id, status) {
+            if (id != '') {
+                $.ajax({
+                    type: "POST",
+                    url: "/taokeyun.php/ArticleCat/changestatus",
+                    dataType: "html",
+                    data: "id=" + id + "&status=" + status,
+                    success: function(msg) {
+                        if (msg == '1') {
+                            swal({
+                                title: "修改状态成功！",
+                                text: "",
+                                type: "success"
+                            }, function() {
+                                location.reload();
+                            })
+                        } else {
+                            swal({
+                                title: "修改状态失败！",
+                                text: "",
+                                type: "error"
+                            }, function() {
+                                location.reload();
+                            })
+                        }
+                    }
+                });
+            }
+        }
+
+        function delcat(id) {
+            if (id != '') {
+                swal({
+                    title: "确定要删除该文章分类吗？分类下的所有文章会一起删除！！！",
+                    text: "",
+                    type: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: "取消",
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "删除",
+                    closeOnConfirm: false
+                }, function() {
+                    $.ajax({
+                        type: "POST",
+                        url: "/taokeyun.php/ArticleCat/del",
+                        dataType: "html",
+                        data: "cat_id=" + id,
+                        success: function(msg) {
+                            if (msg == '3') {
+                                swal({
+                                    title: "该分类不可删除！",
+                                    text: "",
+                                    type: "error"
+                                }, function() {
+                                    location.reload();
+                                })
+                            }
+                            if (msg == '2') {
+                                swal({
+                                    title: "该分类下还有二级分类，需要先删除二级分类才能删除该分类！",
+                                    text: "",
+                                    type: "error"
+                                }, function() {
+                                    location.reload();
+                                })
+                            }
+                            if (msg == '1') {
+                                swal({
+                                    title: "删除成功！",
+                                    text: "",
+                                    type: "success"
+                                }, function() {
+                                    location.reload();
+                                })
+                            }
+                            if (msg == '0') {
+                                swal({
+                                    title: "删除失败！",
+                                    text: "",
+                                    type: "success"
+                                }, function() {
+                                    location.reload();
+                                })
+                            }
+                        }
+                    });
+                })
+            }
+        }
+    </script>
+    <style>
+        .topCat {
+            color: red;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .tr_sub {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="gray-bg">
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="ibox-title">
+                        <h3>当前位置： 内容管理 &raquo; 文章分类管理</h3>
+                    </div>
+                    <div class="ibox-content">
+                        <a class="layui-btn pull-right" href="/taokeyun2">添加文章分类</a>
+                        <div class="layui-row layui-col-space15">
+                            <form action="/taokeyun.php/ArticleCat/changesort" method="post">
+                                <table class="layui-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>文章分类名称</th>
+                                            <th>菜单状态</th>
+                                            <th>创建时间</th>
+                                            <th>文章列表</th>
+                                            <th>排序</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td style="text-align:left;padding-left:10px">系统文章</td>
+                                            <td><button type="button" class="layui-btn layui-btn-xs" onclick="changestatus(1,'N');">显示</button></td>
+                                            <td>2018-07-16 11:21:19</td>
+                                            <td><a href="/taokeyun.php/Article/index/cat_id/1" class="layui-btn">查看文章列表（7篇）</a></td>
+                                            <td class="has-warning"><input name="sort[1]" value="0" class="form-control" style="width:50px;text-align:center" /></td>
+                                            <td>
+                                                <a href="/taokeyun.php/ArticleCat/edit/cat_id/1" title="修改">
+                                                    <i class="layui-icon layui-icon-edit" style="font-size:2.0rem"></i>&nbsp;
+                                                </a>
+                                                <a href="javascript:;" onclick="delcat(1);" title="删除">
+                                                    <i class="layui-icon layui-icon-delete" style="font-size:2.0rem"></i>&nbsp;
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td style="text-align:left;padding-left:10px">常见问题</td>
+                                            <td><button type="button" class="layui-btn layui-btn-xs" onclick="changestatus(2,'N');">显示</button></td>
+                                            <td>2018-10-26 15:21:02</td>
+                                            <td><a href="/taokeyun.php/Article/index/cat_id/2" class="layui-btn">查看文章列表（8篇）</a></td>
+                                            <td class="has-warning"><input name="sort[2]" value="0" class="form-control" style="width:50px;text-align:center" /></td>
+                                            <td>
+                                                <a href="taokeyun2" title="修改">
+                                                    <i class="layui-icon layui-icon-edit" style="font-size:2.0rem"></i>&nbsp;
+                                                </a>
+                                                <a href="javascript:;" onclick="delcat(2);" title="删除">
+                                                    <i class="layui-icon layui-icon-delete" style="font-size:2.0rem"></i>&nbsp;
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td style="text-align:left;padding-left:20px">— 关于朱氏严选</td>
+                                            <td><button type="button" class="layui-btn layui-btn-xs" onclick="changestatus(6,'N');">显示</button></td>
+                                            <td>2020-06-16 14:57:41</td>
+                                            <td><a href="/taokeyun.php/Article/index/cat_id/6" class="layui-btn">查看文章列表（3篇）</a></td>
+                                            <td class="has-warning"><input name="sort[6]" value="0" class="form-control" style="width:50px;text-align:center" /></td>
+                                            <td>
+                                                <a href="/taokeyun.php/ArticleCat/edit/cat_id/6" title="修改">
+                                                    <i class="layui-icon layui-icon-edit" style="font-size:2.0rem"></i>&nbsp;
+                                                </a>
+                                                <a href="javascript:;" onclick="delcat(6);" title="删除">
+                                                    <i class="layui-icon layui-icon-delete" style="font-size:2.0rem"></i>&nbsp;
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>7</td>
+                                            <td style="text-align:left;padding-left:20px">— 商品相关</td>
+                                            <td><button type="button" class="layui-btn layui-btn-xs" onclick="changestatus(7,'N');">显示</button></td>
+                                            <td>2019-11-26 10:16:54</td>
+                                            <td><a href="/taokeyun.php/Article/index/cat_id/7" class="layui-btn">查看文章列表（1篇）</a></td>
+                                            <td class="has-warning"><input name="sort[7]" value="0" class="form-control" style="width:50px;text-align:center" /></td>
+                                            <td>
+                                                <a href="/taokeyun.php/ArticleCat/edit/cat_id/7" title="修改">
+                                                    <i class="layui-icon layui-icon-edit" style="font-size:2.0rem"></i>&nbsp;
+                                                </a>
+                                                <a href="javascript:;" onclick="delcat(7);" title="删除">
+                                                    <i class="layui-icon layui-icon-delete" style="font-size:2.0rem"></i>&nbsp;
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>8</td>
+                                            <td style="text-align:left;padding-left:20px">— 订单相关</td>
+                                            <td><button type="button" class="layui-btn layui-btn-xs" onclick="changestatus(8,'N');">显示</button></td>
+                                            <td>2019-01-24 10:14:56</td>
+                                            <td><a href="/taokeyun.php/Article/index/cat_id/8" class="layui-btn">查看文章列表（0篇）</a></td>
+                                            <td class="has-warning"><input name="sort[8]" value="0" class="form-control" style="width:50px;text-align:center" /></td>
+                                            <td>
+                                                <a href="/taokeyun.php/ArticleCat/edit/cat_id/8" title="修改">
+                                                    <i class="layui-icon layui-icon-edit" style="font-size:2.0rem"></i>&nbsp;
+                                                </a>
+                                                <a href="javascript:;" onclick="delcat(8);" title="删除">
+                                                    <i class="layui-icon layui-icon-delete" style="font-size:2.0rem"></i>&nbsp;
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>9</td>
+                                            <td style="text-align:left;padding-left:20px">— 关于奖励</td>
+                                            <td><button type="button" class="layui-btn layui-btn-xs" onclick="changestatus(9,'N');">显示</button></td>
+                                            <td>2019-01-24 10:15:05</td>
+                                            <td><a href="/taokeyun.php/Article/index/cat_id/9" class="layui-btn">查看文章列表（0篇）</a></td>
+                                            <td class="has-warning"><input name="sort[9]" value="0" class="form-control" style="width:50px;text-align:center" /></td>
+                                            <td>
+                                                <a href="/taokeyun.php/ArticleCat/edit/cat_id/9" title="修改">
+                                                    <i class="layui-icon layui-icon-edit" style="font-size:2.0rem"></i>&nbsp;
+                                                </a>
+                                                <a href="javascript:;" onclick="delcat(9);" title="删除">
+                                                    <i class="layui-icon layui-icon-delete" style="font-size:2.0rem"></i>&nbsp;
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>10</td>
+                                            <td style="text-align:left;padding-left:20px">— 其他问题</td>
+                                            <td><button type="button" class="layui-btn layui-btn-xs" onclick="changestatus(10,'N');">显示</button></td>
+                                            <td>2019-01-24 10:15:13</td>
+                                            <td><a href="/taokeyun.php/Article/index/cat_id/10" class="layui-btn">查看文章列表（0篇）</a></td>
+                                            <td class="has-warning"><input name="sort[10]" value="0" class="form-control" style="width:50px;text-align:center" /></td>
+                                            <td>
+                                                <a href="/taokeyun.php/ArticleCat/edit/cat_id/10" title="修改">
+                                                    <i class="layui-icon layui-icon-edit" style="font-size:2.0rem"></i>&nbsp;
+                                                </a>
+                                                <a href="javascript:;" onclick="delcat(10);" title="删除">
+                                                    <i class="layui-icon layui-icon-delete" style="font-size:2.0rem"></i>&nbsp;
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td style="text-align:left;padding-left:10px">新手课程</td>
+                                            <td><button type="button" class="layui-btn layui-btn-xs" onclick="changestatus(3,'N');">显示</button></td>
+                                            <td>2019-11-18 19:13:08</td>
+                                            <td><a href="/taokeyun.php/Article/index/cat_id/3" class="layui-btn">查看文章列表（11篇）</a></td>
+                                            <td class="has-warning"><input name="sort[3]" value="0" class="form-control" style="width:50px;text-align:center" /></td>
+                                            <td>
+                                                <a href="/taokeyun.php/ArticleCat/edit/cat_id/3" title="修改">
+                                                    <i class="layui-icon layui-icon-edit" style="font-size:2.0rem"></i>&nbsp;
+                                                </a>
+                                                <a href="javascript:;" onclick="delcat(3);" title="删除">
+                                                    <i class="layui-icon layui-icon-delete" style="font-size:2.0rem"></i>&nbsp;
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td style="text-align:left;padding-left:10px">今日头条</td>
+                                            <td><button type="button" class="layui-btn layui-btn-xs" onclick="changestatus(4,'N');">显示</button></td>
+                                            <td>2018-11-27 18:04:47</td>
+                                            <td><a href="/taokeyun.php/Article/index/cat_id/4" class="layui-btn">查看文章列表（1篇）</a></td>
+                                            <td class="has-warning"><input name="sort[4]" value="0" class="form-control" style="width:50px;text-align:center" /></td>
+                                            <td>
+                                                <a href="/taokeyun.php/ArticleCat/edit/cat_id/4" title="修改">
+                                                    <i class="layui-icon layui-icon-edit" style="font-size:2.0rem"></i>&nbsp;
+                                                </a>
+                                                <a href="javascript:;" onclick="delcat(4);" title="删除">
+                                                    <i class="layui-icon layui-icon-delete" style="font-size:2.0rem"></i>&nbsp;
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td style="text-align:left;padding-left:10px">MARS商学院</td>
+                                            <td><button type="button" class="layui-btn layui-btn-xs" onclick="changestatus(5,'N');">显示</button></td>
+                                            <td>2020-06-16 15:02:41</td>
+                                            <td><a href="/taokeyun.php/Article/index/cat_id/5" class="layui-btn">查看文章列表（4篇）</a></td>
+                                            <td class="has-warning"><input name="sort[5]" value="0" class="form-control" style="width:50px;text-align:center" /></td>
+                                            <td>
+                                                <a href="/taokeyun.php/ArticleCat/edit/cat_id/5" title="修改">
+                                                    <i class="layui-icon layui-icon-edit" style="font-size:2.0rem"></i>&nbsp;
+                                                </a>
+                                                <a href="javascript:;" onclick="delcat(5);" title="删除">
+                                                    <i class="layui-icon layui-icon-delete" style="font-size:2.0rem"></i>&nbsp;
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="7">
+                                                <input type="submit" class="layui-btn pull-right" value="统一排序">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="http://www.yanxuan.net/Public/layuiadmin/layui/layui.all.js"></script>
+</body>
+
+</html>

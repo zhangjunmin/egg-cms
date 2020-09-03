@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台管理系统</title>
+    <link rel="stylesheet" href="vendor/font-awesome/css/all.css">
+    <link rel="stylesheet" href="vendor/layui/dist/css/layui.css">
+    <link rel="stylesheet" href="css/admin.css">
+
+</head>
+
+<body class="fixed-sidebar full-height-layout gray-bg layui-layout-body  pace-done" style="overflow: hidden">
+    <div class="pace  pace-inactive">
+        <div class="pace-progress" data-progress-text="100%" data-progress="99" style="width: 100%;">
+            <div class="pace-progress-inner"></div>
+        </div>
+        <div class="pace-activity"></div>
+    </div>
+    <div id="wrapper" class="layadmin-tabspage-none">
+        <!--左侧导航开始-->
+        <style>
+            .layui-side::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .layui-nav-tree .layui-this,
+            .layui-nav-tree .layui-this>a,
+            .layui-nav-tree .layui-this>a:hover {
+                background-color: orange !important;
+            }
+            
+            .layui-nav-tree .layui-nav-bar {
+                background-color: orange !important;
+            }
+        </style>
+        <nav class="layui-side layui-side-menu" id="mydiynav">
+            <!-- <div class="nav-close">
+              <i class="fa fa-times-circle"></i>
+          </div> -->
+            <li class="nav-header layui-side-menu" style="text-align: center">
+                <div class="dropdown profile-element">
+                    <span><img alt="image" class="img-circle" src="/Public/static/admin/img/logo.png?random=1599100452" width="72"></span>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="clear">
+                          <span class="block m-t-xs"><strong class="font-bold">朱氏严选APP管理后台</strong></span>
+                        </span>
+                    </a>
+                </div>
+                <div class="logo-element">后台</div>
+            </li>
+            <ul class="layui-nav layui-nav-tree layui-bg-orange" lay-filter="test">
+
+                <div class="layui-side" style="margin-top: 162px;">
+                    <li class="layui-nav-item ">
+                        <a href="/taokeyun">
+                            <i class="layui-icon layui-icon-home"></i>
+                            <span class="nav-label">主页</span>
+                        </a>
+                    </li>
+                    <li class="layui-nav-item ">
+                        <a href="/taokeyun" target="_blank">
+                            <i class="layui-icon layui-icon-release"></i>
+                            <span class="nav-label">大数据面板</span>
+                        </a>
+                    </li>
+                    <li class="layui-nav-item ">
+                        <a href="#">
+                            <i class="layui-icon layui-icon-component"></i>
+                            <span class="nav-label">首页DIY设置</span>
+                            <span class="layui-nav-more"></span></a>
+                        <dl class="layui-nav-child">
+                            <dd><a class="J_menuItem" href="/taokeyun" data-index="0">功能模块管理</a></dd>
+                            <dd><a class="J_menuItem" href="/taokeyun" data-index="1">Banner/广告管理</a></dd>
+                            <dd><a class="J_menuItem" href="/taokeyun" data-index="2">宫格版块管理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">
+                            <i class="layui-icon layui-icon-dialogue"></i>
+                            <span class="nav-label">内容管理</span>
+                            <span class="layui-nav-more"></span></a>
+                        <ul class="layui-nav-child">
+                            <li><a class="J_menuItem" href="/taokeyun.php/ArticleCat/index" data-index="3">文章管理</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/MessageCat/index" data-index="4">留言管理</a></li>
+                            <!-- <li><a class="J_menuItem" href="/taokeyun.php/HrefCat/index">友情链接</a></li> -->
+                            <!-- <li><a class="J_menuItem" href="/taokeyun.php/Qq/index">QQ客服管理</a></li>
+                          <li><a class="J_menuItem" href="/taokeyun.php/Job/index">招聘管理</a></li> -->
+                        </ul>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">
+                            <i class="layui-icon layui-icon-spread-left"></i>
+                            <span class="nav-label">淘宝管理系统</span>
+                            <span class="layui-nav-more"></span></a>
+                        <ul class="layui-nav-child">
+                            <li><a class="J_menuItem" href="/taokeyun.php/TaobaoCat/index" data-index="5">淘宝商品分类管理</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/TbCat/index" data-index="6">淘宝官方商品分类管理</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/TbOrder/index" data-index="7">淘宝订单管理</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/TbOrder/treatOrder" data-index="8">处理遗漏淘宝订单</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/TbOrder/allotOrder" data-index="9">处理无归属淘宝订单</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/TbOrder/allotOrderAll" data-index="10">批量处理无归属淘宝订单</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/TbOrder/task" data-index="11">淘宝订单卡顿处理（长期订单不同步使用）</a></li>
+                        </ul>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">
+                            <i class="layui-icon layui-icon-transfer"></i>
+                            <span class="nav-label">拼多多管理系统</span>
+                            <span class="layui-nav-more"></span></a>
+                        <ul class="layui-nav-child">
+                            <li><a class="J_menuItem" href="/taokeyun.php/PddCat/index" data-index="12">拼多多商品分类管理</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/PddOrder/index" data-index="13">拼多多订单管理</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/PddOrder/treatOrder" data-index="14">处理拼多多遗漏订单</a></li>
+                        </ul>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">
+                            <i class="layui-icon layui-icon-slider"></i>
+                            <span class="nav-label">京东管理系统</span>
+                            <span class="layui-nav-more"></span></a>
+                        <ul class="layui-nav-child">
+                            <li><a class="J_menuItem" href="/taokeyun.php/JingdongCat/index" data-index="15">京东商品分类管理</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/JingdongOrder/index" data-index="16">京东订单管理</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/JingdongOrder/treatOrder" data-index="17">处理遗漏京东订单</a></li>
+                        </ul>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">
+                            <i class="layui-icon layui-icon-shrink-right"></i>
+                            <span class="nav-label">唯品会管理系统</span>
+                            <span class="layui-nav-more"></span></a>
+                        <ul class="layui-nav-child">
+                            <li><a class="J_menuItem" href="/taokeyun.php/VipCat/index" data-index="18">唯品会商品分类管理</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/VipOrder/index" data-index="19">唯品会订单管理</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/VipOrder/treatOrder" data-index="20">处理遗漏唯品会订单</a></li>
+                        </ul>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">
+                            <i class="layui-icon layui-icon-diamond"></i>
+                            <span class="nav-label">黑卡管理系统</span>
+                            <span class="layui-nav-more"></span></a>
+                        <ul class="layui-nav-child">
+                            <li><a class="J_menuItem" href="/taokeyun.php/CardCat/index" data-index="21">黑卡分类</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/CardPrivilege/index" data-index="22">黑卡列表</a></li>
+                        </ul>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">
+                            <i class="layui-icon layui-icon-user"></i>
+                            <span class="nav-label">社区/论坛系统</span>
+                            <span class="layui-nav-more"></span></a>
+                        <ul class="layui-nav-child">
+                            <li><a class="J_menuItem" href="/taokeyun.php/BbsBoard/index" data-index="23">版块管理</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/BbsArticle/checkPending" data-index="24">待审核帖子列表</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/BbsArticle/checkPass" data-index="25">已审核帖子列表</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/BbsArticle/checkRefused" data-index="26">审核不通过帖子列表</a></li>
+                        </ul>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">
+                            <i class="layui-icon layui-icon-survey"></i>
+                            <span class="nav-label">营销中心</span>
+                            <span class="layui-nav-more"></span></a>
+                        <ul class="layui-nav-child">
+                            <li><a class="J_menuItem" href="/taokeyun.php/BbsArticle/redPacketSet" data-index="27">新人红包金额设置</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/BbsArticle/sendGoods" data-index="28">爆款商品推送</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/BbsArticle/sendArticle" data-index="29">文章推送</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/TbGoods/index" data-index="30">淘宝推荐商品管理</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/HotSearch/index" data-index="31">热门搜索设置</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/Rookie/index" data-index="32">拉新活动</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/TbGoodsFree/index" data-index="33">淘宝0元购商品管理</a></li>
+                            <!--					<li><a class="J_menuItem"-->
+                            <!--							href="https://pub.alimama.com/promo/search/index.htm?spm=a219t.7900221/1.1998910419.de727cf05.2a8f75a54Spltq&toPage=1&queryType=2"-->
+                            <!--							target="_blank">淘宝商品超级搜索</a></li>-->
+                        </ul>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">
+                            <i class="layui-icon layui-icon-release"></i>
+                            <span class="nav-label">任务中心</span>
+                            <span class="layui-nav-more"></span></a>
+                        <ul class="layui-nav-child">
+                            <li><a class="J_menuItem" href="/taokeyun.php/PointSet/infoSet" data-index="34">完善资料</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/System/userSet" data-index="35">分享好友</a></li>
+                            <!--					<li><a class="J_menuItem" href="javascript:alert('待开发');">实名认证</a></li>-->
+                            <li><a class="J_menuItem" href="/taokeyun.php/PointSet/set" data-index="36">积分系统</a></li>
+                        </ul>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">
+                            <i class="layui-icon layui-icon-cart-simple"></i>
+                            <span class="nav-label">商城系统</span>
+                            <span class="layui-nav-more"></span></a>
+                        <ul class="layui-nav-child">
+                            <li><a class="J_menuItem" href="/taokeyun.php/Brand/index" data-index="37">厂家/品牌管理</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/GoodsCat/index" data-index="38">商品管理</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/Goods/recycle" data-index="39">商品回收站</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/ConsigneeAddress/index" data-index="40">收货地址管理</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/Invoice/index" data-index="41">发票信息管理</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/Bank/index" data-index="42">银行管理</a></li>
+                        </ul>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">
+                            <i class="layui-icon layui-icon-spread-left"></i>
+                            <span class="nav-label">订单管理</span>
+                            <span class="layui-nav-more"></span></a>
+                        <ul class="layui-nav-child">
+                            <li><a class="J_menuItem" href="/taokeyun.php/Order/unpaid" data-index="43">未付款订单</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/Order/paid" data-index="44">已付款订单</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/Order/send" data-index="45">已发货订单</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/Order/finish" data-index="46">已确认收货订单</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/Order/comment" data-index="47">已评价/已结束订单</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/Order/refund" data-index="48">申请退款订单</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/Order/refundSuccess" data-index="49">退款成功订单</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/Order/refundFail" data-index="50">拒绝退款订单</a></li>
+                            <!-- 
+                              <li><a class="J_menuItem" href="/taokeyun.php/Order/add">人工录入订单</a></li>
+                              <li><a class="J_menuItem" href="/taokeyun.php/Order/StatisticsNum">订单数量统计</a></li>
+                              <li><a class="J_menuItem" href="/taokeyun.php/Order/StatisticsMoney">订单金额统计</a></li>
+                               -->
+                        </ul>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">
+                            <i class="layui-icon layui-icon-username"></i>
+                            <span class="nav-label">会员管理</span>
+                            <span class="layui-nav-more"></span></a>
+                        <ul class="layui-nav-child">
+                            <li><a class="J_menuItem" href="/taokeyun.php/UserGroup/index" data-index="51">会员组管理</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/User/index" data-index="52">会员列表</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/User/teamReward" data-index="53">会员团队分红设置</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/UserBalanceRecord/index" data-index="54">会员余额变动记录</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/UserPointRecord/index" data-index="55">会员积分变动记录</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/UserAuthCode/index" data-index="56">会员授权码管理</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/User/everyday" data-index="57">每日注册会员统计</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/User/statistics" data-index="58">会员统计</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/User/index2" data-index="59">活跃会员统计</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/User/export" data-index="60">导出会员列表</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/User/setup" data-index="61">会员登录设置</a></li>
+                        </ul>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">
+                            <i class="layui-icon layui-icon-dollar"></i>
+                            <span class="nav-label">代理商系统</span>
+                            <span class="layui-nav-more"></span></a>
+                        <ul class="layui-nav-child">
+                            <li><a class="J_menuItem" href="/taokeyun.php/Agent/index" data-index="62">查看用户列表</a></li>
+                        </ul>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">
+                            <i class="layui-icon layui-icon-rmb"></i>
+                            <span class="nav-label">资金管理</span>
+                            <span class="layui-nav-more"></span></a>
+                        <ul class="layui-nav-child">
+                            <li><a class="J_menuItem" href="/taokeyun.php/UserDrawApply/checkPending" data-index="63">用户待审核提现申请</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/UserDrawApply/checked" data-index="64">用户已审核提现申请</a></li>
+                        </ul>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">
+                            <i class="layui-icon layui-icon-set-sm"></i>
+                            <span class="nav-label">系统设置</span>
+                            <span class="layui-nav-more"></span></a>
+                        <ul class="layui-nav-child">
+                            <li><a class="J_menuItem" href="/taokeyun.php/System/webset" data-index="65">站点设置</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/System/sensitive" data-index="66">敏感词过滤</a></li>
+                            <!--					<li><a class="J_menuItem" href="/taokeyun.php/System/feeset">费用规则设置</a></li>-->
+                            <li><a class="J_menuItem" href="/taokeyun.php/System/accountSet" data-index="67">应用账号配置</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/System/drawSet" data-index="68">提现设置</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/System/rebateSet" data-index="69">返利设置</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/System/articleSet" data-index="70">系统文章设置</a></li>
+                            <li><a class="J_menuItem" href="/upgrade.php" data-index="71">版本更新</a></li>
+                        </ul>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">
+                            <i class="layui-icon layui-icon-user"></i>
+                            <span class="nav-label">管理员管理</span>
+                            <span class="layui-nav-more"></span></a>
+                        <ul class="layui-nav-child">
+                            <li><a class="J_menuItem" href="/taokeyun.php/Admin/index" data-index="72">管理员列表</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/AdminGroup/index" data-index="73">组别管理</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/AuthRule/index" data-index="74">权限管理</a></li>
+                            <li><a class="J_menuItem" href="/taokeyun.php/Admin/changepwd" data-index="75">修改密码</a></li>
+                        </ul>
+                    </li>
+
+                </div>
+                <span class="layui-nav-bar" style="top: 247.5px; height: 0px; opacity: 0;"></span></ul>
+        </nav>
+        <!--左侧导航结束-->
+        <!--右侧部分开始-->
+        <div id="page-wrapper" style="margin-left:200px;padding: 0; overflow: hidden;">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li class="dropdown" style="display: none">
+                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                                <i class="fa fa-bell"></i> <span class="label label-primary">8</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-alerts">
+                                <li>
+                                    <a href="mailbox.html">
+                                        <div>
+                                            <i class="fa fa-envelope fa-fw"></i> 您有16条未读消息 <span class="pull-right text-muted small">4分钟前</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="profile.html">
+                                        <div>
+                                            <i class="fa fa-qq fa-fw"></i> 3条新回复 <span class="pull-right text-muted small">12分钟钱</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="text-center link-block">
+                                        <a class="J_menuItem" href="notifications.html" data-index="76"> <strong>查看所有 </strong>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="hidden-xs">
+                            <a href="/taokeyun.php/System/cleancache" data-index="0">
+                                <i class="fa fa-cart-arrow-down"></i>清理缓存</a>
+                        </li>
+                        <li class="hidden-xs">
+                            <a href="/taokeyun.php/System/clearrubbish" data-index="0">
+                                <i class="fa fa-cart-arrow-down"></i>清理垃圾</a>
+                        </li>
+
+                    </ul>
+                </nav>
+            </div>
+            <div class="row content-tabs">
+                <button class="roll-nav roll-left J_tabLeft">
+              <i class="fa fa-backward"></i>
+          </button>
+                <nav class="page-tabs J_menuTabs">
+                    <div class="page-tabs-content">
+                        <a href="javascript:;" class="active J_menuTab" data-id="index_v1.html">首页</a>
+                    </div>
+                </nav>
+                <button class="roll-nav roll-right J_tabRight">
+                    <i class="fa fa-flag" aria-hidden="true"></i>
+            </button>
+                <div class="btn-group roll-nav roll-right">
+                    <button class="dropdown J_tabClose" data-toggle="dropdown">
+                  关闭操作<span class="caret"></span>
+      
+              </button>
+                    <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                        <li class="J_tabShowActive"><a>定位当前选项卡</a></li>
+                        <li class="divider"></li>
+                        <li class="J_tabCloseAll"><a>关闭全部选项卡</a></li>
+                        <li class="J_tabCloseOther"><a>关闭其他选项卡</a></li>
+                    </ul>
+                </div>
+                <a href="/taokeyun.php/Index/loginout" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+            </div>
+            <div class="row J_mainContent gray-bg" id="content-main">
+                <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="/taokeyun" frameborder="0" data-id="index_v1.html" seamless=""></iframe>
+            </div>
+            <!-- <div class="row J_mainContent" id="content-main">
+                  {__CONTENT__}
+                  </div> -->
+            <div class="footer">
+                <div class="pull-right">
+                    © 2020 <a href="https://www.taokeyun.cn/" target="_blank">版权所有：淘客云</a>
+                </div>
+            </div>
+        </div>
+        <!--右侧部分结束-->
+        <!--右侧边栏开始-->
+        <div id="right-sidebar">
+            <div class="slimScrollDiv" style="position: relative; width: auto; height: 100%;">
+                <div class="sidebar-container" style="width: auto; height: 100%;">
+                    <div class="tab-content">
+                        <div id="tab-1" class="tab-pane active">
+                            <div class="sidebar-title">
+                                <h3><i class="fa fa-comments-o"></i> 主题设置</h3>
+                                <small><i class="fa fa-tim"></i>你可以从这里选择和预览主题的布局和样式，这些设置会被保存在本地，下次打开的时候会直接应用这些设置。</small>
+                            </div>
+                            <div class="skin-setttings">
+                                <div class="setings-item">
+                                    <span>收起左侧菜单</span>
+                                    <div class="switch">
+                                        <div class="onoffswitch">
+                                            <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="collapsemenu">
+                                            <label class="onoffswitch-label" for="collapsemenu"> 
+                                              <span class="onoffswitch-inner"></span> 
+                                              <span class="onoffswitch-switch"></span>
+                                              </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="setings-item">
+                                    <span>固定顶部</span>
+                                    <div class="switch">
+                                        <div class="onoffswitch">
+                                            <input type="checkbox" name="fixednavbar" class="onoffswitch-checkbox" id="fixednavbar">
+                                            <label class="onoffswitch-label" for="fixednavbar"> 
+                                              <span class="onoffswitch-inner"></span> 
+                                              <span class="onoffswitch-switch"></span>
+                                              </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="setings-item">
+                                    <span> 固定宽度 </span>
+                                    <div class="switch">
+                                        <div class="onoffswitch">
+                                            <input type="checkbox" name="boxedlayout" class="onoffswitch-checkbox" id="boxedlayout">
+                                            <label class="onoffswitch-label" for="boxedlayout"> 
+                                              <span class="onoffswitch-inner"></span> 
+                                              <span class="onoffswitch-switch"></span>
+                                              </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="title">皮肤选择</div>
+                                <div class="setings-item default-skin nb">
+                                    <span class="skin-name "> <a href="#" class="s-skin-0"> 默认皮肤 </a> </span>
+                                </div>
+                                <div class="setings-item blue-skin nb">
+                                    <span class="skin-name "> <a href="#" class="s-skin-1"> 蓝色主题 </a> </span>
+                                </div>
+                                <div class="setings-item yellow-skin nb">
+                                    <span class="skin-name "> <a href="#" class="s-skin-3"> 黄色/紫色主题 </a> </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 4px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 534px;"></div>
+                <div class="slimScrollRail" style="width: 4px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.4; z-index: 90; right: 1px;"></div>
+            </div>
+        </div>
+        <!--右侧边栏结束-->
+    </div>
+</body>
+<!-- jquery太高版本会导致报错 -->
+<script src="jquery-10/jquery.js"></script>
+<script src="vendor/layui/dist/layui.all.js"></script>
+<script src="vendor/jquery-plugin/jquery-ui-1.10.4.min.js"></script>
+<script src="jquery-plugin/jquery-contabs.min.js"></script>
+
+</html>
